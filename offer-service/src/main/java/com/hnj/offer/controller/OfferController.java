@@ -19,7 +19,7 @@ public class OfferController {
 	}
 
 	@PostMapping("/offer")
-	public void addProduct(@Valid @RequestBody OfferRequest offerRequest){
+	public void addProductOffer(@Valid @RequestBody OfferRequest offerRequest){
 		offerService.addProductOffer(offerRequest);
 	}
 }
