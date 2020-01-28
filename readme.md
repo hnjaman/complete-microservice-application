@@ -1,7 +1,7 @@
 # What is microservice?
-Microservice is modern as well as a popular architectural term for designing software application over the last few years.  
-There are lots of definition on the internet to describe what microservice really is and all of them are correct.  
-But wanna describe it simply, concisely and more importance is exactly.  
+Microservice is modern as well as a popular architectural term for designing software application  
+over the last few years. There are lots of definition on the internet to describe what microservice  
+really is and all of them are correct. But I wanna describe it simply, concisely and more importance is exactly.  
 
 A microservice application is consist of different services where every service is an application and  
   1. Independently deployable   
@@ -9,9 +9,9 @@ A microservice application is consist of different services where every service 
 
 above two are the key requirements of a microservice application.
 
-In this microservice application here are two service product-service and offer-service 
-both independently deployable and scaleable.  
-They are also using a different database but this is not an issue about microservice architecture. They can use the same database.  
+In this microservice application here are two service product-service and offer-service  
+both independently deployable and scaleable. They are also using a different database   
+but this is not an issue about microservice architecture. They can use the same database.  
 
 
 
@@ -95,3 +95,7 @@ and product table is updated with 30% discount_offer for product_id=1.
 ## How it's working?
 When we add an offer for a product from **offer-service** it pushes an event notification to **product-service** with
 discount_offer and **product-service** update itself by its business logic.
+
+# Copyright & License
+
+MIT License, see the link: [LICENSE](https://github.com/hnjaman/complete-microservice-application/blob/master/LICENSE) file for details.
