@@ -9,7 +9,6 @@ above two are the key requirements of a microservice application.
 
 In this microservice application here are two service **product-service** and **offer-service** both independently deployable and scaleable. They are also using a different database but this is not an issue about microservice architecture. They can use the same database.
 
-
 # Run the services
 
 ## Prerequisites
@@ -88,7 +87,61 @@ and product table is updated with 30% discount_offer for product_id=1.
 **Note:** Here Offer and Product table are from different data source and running on different port.
 
 ## How it's working?
-When we add an offer for a product from **offer-service** it pushes an event notification to **product-service** with discount_offer and **product-service** update itself by its business logic.
+When we add an offer for a product from **offer-service** it pushes an event notification to **product-service** with 
+discount_offer and **product-service** update itself by its business logic.
+
+
+# Tools for maintainable and scalable microservice application design [ Incomplete...]
+
+### Service Discovery [Service Registry]
+All microservice instances will register with a naming server for service registraton. When a service wants 
+to use another service, it will ask to naming server what instances are currently running. Server will check
+the instances and pass the request to the instance. This is called service discovery.
+The advantage is s service registry always updates itself, if one instance goes down, 
+it removes it from its registry.
+- Eureka
+- Zookeeper
+- Consul
+
+### Load Balancing [Client Side]
+Multiple instances of a services will be distriduted to calling services.
+if one microservice wants to communicate with another microservice, 
+it generally ask the service registry which returns all the instances of the 
+called microservice to the calling service. Then it is calling service headache 
+which instance it will call. This is the process of client side load balancing.
+- Ribbon
+
+### Polyglot Systems [set a non java application with Eureka and Ribbon ]
+- Sidecar
+    - Sidecar is a project inspired by Netflix Prana and, as its name suggests, requires you
+      to start an instance of this application appendix per non-Java application
+      instance for which you want to use Ribbon and Eureka.
+
+### API Gateway
+It itself a service for facing clients. Just like the entry point to get any service.
+Receive all the request and delegates the request to the appropriate service.
+Like a gatekeeper.
+- Zuul
+
+
+### Intra Communication among Microservices
+Invoking other microservices via http proxy request.
+- REST Templete
+- Feign
+  - Developers don’t have to bother about REST internal details. Encoding request and 
+Decoding reponse are automatically maintained by Feign.
+
+### Distributed Tracing
+Simply the centralized log for all services to tracing complete chain of what happened 
+in a specific request. Centralized information container for all the services.
+- Spring cloud sleuth 
+  - Tracing every request by assigning an unique id to every request so that the request can be identified
+inside every services.
+- RabbitMQ 
+  - The Advanced Message Queuing Protocol (AMQP) which put all services log in one message queue 
+and send it to tracing server like Zipkin. All services are connected with RabbitMQ.
+- Zipkin
+  - The server application for visualizing what happens on the specific request.
 
 # Copyright & License
 
