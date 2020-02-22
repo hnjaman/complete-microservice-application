@@ -1,0 +1,44 @@
+server:
+  port: 8000
+
+zuul:
+  prefix: /api
+  routes:
+    product-service:
+      path: /products/**
+#      url: http://localhost:8081/products
+      serviceId: product-service
+      strip-prefix: false
+    offer-service:
+      path: /offer/**
+#      url: http://localhost:8082/offer
+      serviceId: offer-service
+      strip-prefix: false
+
+endpoints:
+  routes:
+    sensitive: false
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+
+# A prefix that can added to beginning of all requests.
+#zuul.prefix=/api
+
+# Disable accessing services using service name (i.e. gallery-service).
+# They should be only accessed through the path defined below.
+
+
+# Map paths to services
+#zuul.routes.sms-service.path=/sms/**
+#zuul.routes.sms-service.service-id=sms-service
+#
+#
+#zuul.prefix=/api
+#zuul.routes.offer-service.path=/offer/**
+#zuul.routes.offer-service.url=http://localhost:8082/offer
+#
+#zuul.routes.product-service.path=/products/**
+#zuul.routes.product-service.url=http://localhost:8082/products

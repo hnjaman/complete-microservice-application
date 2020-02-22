@@ -1,10 +1,15 @@
 offer-service/.mvn
-product-service/.mvn
 offer-service/.gitignore
+
+product-service/.mvn
 product-service/.gitignore
 
 api-gateway/.mvn
 api-gateway/.gitignore
+
+service-registry/.gitignore
+service-registry/.mvn
+
 
 mvnw
 *.cmd
