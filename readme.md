@@ -25,7 +25,14 @@ Here is **install-rabbitmq-macOS.sh** file to install RabbitMQ type `bash instal
 then start RabbitMQ by typing `rabbitmq-server`.
 
 ##### [Ubuntu OS]
-Check this for [Installing on Debian and Ubuntu](https://www.rabbitmq.com/install-debian.html)
+Check this for [Installing on Debian and Ubuntu](https://www.rabbitmq.com/install-debian.html)  
+
+RabbitMQ commands for ubuntu  
+--to start `sudo service rabbitmq-server start`  
+--to restart `sudo service rabbitmq-server restart`  
+--to stop `sudo service rabbitmq-server stop`  
+--to check status `sudo service rabbitmq-server status`
+
 
 ##### [Windows]  
 Check this for [Installing on Windows](https://www.rabbitmq.com/install-windows.html#installer)
@@ -56,7 +63,7 @@ Let's add a new product by calling `localhost:8081/products` POST endpoint with 
 {
 	"productCode": "ABC1",
 	"productTitle": "watch",
-	"imageUrl": "watch.img"
+	"imageUrl": "watch.png"
 }
 ````
 Now check product table and there is a product with product_id is 1 [remember it] and no **discount_offer**.   
