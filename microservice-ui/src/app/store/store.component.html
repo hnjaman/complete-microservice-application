@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col bg-dark text-white">
+            <a class="navbar-brand">STORE</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3 bg-info p-2 text-white">
+            <!-- {{categories.length}} Categories -->
+        </div>
+        <div class="col-9 p-2">
+            <div *ngFor="let product of products" class="card m-1 p-1 bg-light">
+                <h4>
+                    {{product.productTitle}}
+                    <span *ngIf="product.discountOffer > 0" class="badge badge-pill badge-primary float-right">
+                        {{ product.discountOffer }}%
+                    </span>
+                </h4>
+                <div class="card-text bg-white p-1">
+                    <img [attr.src]="product.imageUrl" width="100" height="50" />
+                    <!-- {{product.imageUrl}} -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
