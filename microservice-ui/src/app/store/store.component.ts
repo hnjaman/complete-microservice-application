@@ -6,7 +6,8 @@ import { map } from 'rxjs/operators';
 
 @Component({
     selector: "store",
-    templateUrl: "store.component.html"
+    templateUrl: "store.component.html",
+    styleUrls: ['./store.component.css']
 })
 export class StoreComponent implements OnInit {
 

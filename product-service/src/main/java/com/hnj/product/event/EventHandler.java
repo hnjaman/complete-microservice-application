@@ -24,7 +24,8 @@ class EventHandler {
     void handleOfferEvent(final ProductOfferEvent productOfferEvent) {
         log.info("Offer productOfferEvent received for the product of: {}", productOfferEvent.getProductId());
         try {
-            productService.addProductOffer(productOfferEvent.getProductId(), productOfferEvent.getDiscountOffer());
+            if (productOfferEvent.getDiscountOffer() > 0)
+                productService.addProductOffer(productOfferEvent.getProductId(), productOfferEvent.getDiscountOffer());
         } catch (final Exception e) {
             log.error("Error when trying to add offer", e);
             // Avoids the productOfferEvent to be re-queued and reprocessed.

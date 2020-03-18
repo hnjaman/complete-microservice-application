@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> getAllProducts() {
-		return productRepository.findAll();
+		return productRepository.findAllByOrderByPriceAsc();
 	}
 
 	@Override
@@ -45,9 +45,30 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void addProductOffer(Integer productId, Double discountOffer) {
 		Optional<Product> product = getProductById(productId);
-		if(product.isPresent()){
+		if(product.isPresent() && product.get().getPrice() != null){
+			Double discountPrice = (discountOffer*product.get().getPrice())/100;
+			product.get().setPrice(product.get().getPrice()-discountPrice);
 			product.get().setDiscountOffer(discountOffer);
 			productRepository.save(product.get());
+		}
+	}
+
+	@Override
+	public Product addPrice(Integer id, Double price) {
+		if (price <= 0)
+			return null;
+		Optional<Product> product = productRepository.findById(id);
+		if(product.isPresent()){
+			if (product.get().getDiscountOffer() != null && product.get().getDiscountOffer() > 0){
+				Double discountPrice = (product.get().getDiscountOffer()*price)/100;
+				product.get().setPrice(price-discountPrice);
+				return productRepository.save(product.get());
+			} else {
+				product.get().setPrice(price);
+				return productRepository.save(product.get());
+			}
+		} else {
+			return null;
 		}
 	}
 }

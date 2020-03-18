@@ -1,25 +1,41 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col bg-dark text-white">
-            <a class="navbar-brand">STORE</a>
+            <a class="navbar-brand">WATCH STORE</a>
         </div>
     </div>
-    <div class="row">
-        <div class="col-3 bg-info p-2 text-white">
-            <!-- {{categories.length}} Categories -->
-        </div>
-        <div class="col-9 p-2">
-            <div *ngFor="let product of products" class="card m-1 p-1 bg-light">
-                <h4>
-                    {{product.productTitle}}
-                    <span *ngIf="product.discountOffer > 0" class="badge badge-pill badge-primary float-right">
-                        {{ product.discountOffer }}%
-                    </span>
-                </h4>
-                <div class="card-text bg-white p-1">
-                    <img [attr.src]="product.imageUrl" width="100" height="50" />
-                    <!-- {{product.imageUrl}} -->
-                </div>
+
+    <div style="margin-top: 40px;" class="row-fluid justify-content-center">
+        <div *ngFor="let product of products">
+            <div class="col-5 float-left">
+                <h3> {{product.productTitle}} </h3>
+                <h6> product id : {{product.id}} </h6>
+                <h6> product code : {{product.productCode}} </h6>
+                <br>
+                <h5 *ngIf="product.price > 0; else addPrice" class="badge badge-dark float-left">
+                    Price : {{ product.price }} BDT 
+                </h5>
+
+                <h5 *ngIf="product.discountOffer > 0; else addDiscount" style="margin-left: 330px;" class="badge badge-secondary float-left">
+                    Discount : {{ product.discountOffer }}%
+                </h5>
+                <br>
+                <br>
+                <!-- <button type="button" class="btn btn-outline-dark btn-sm float-left">Update</button> -->
+                
+                <ng-template #addPrice>
+                    <button type="button" class="btn btn-outline-danger btn-sm float-left">Add Price</button>
+                </ng-template>
+                <ng-template #addDiscount>
+                    <button type="button" style="margin-left: 355px;" class="btn btn-outline-dark btn-sm float-left" routerLink="/offer">
+                        Add Discount
+                    </button>
+                </ng-template>
+                
+            </div>
+
+            <div class="col-5 float-left">
+                <img [attr.src]="product.imageUrl" width="500px" height="250px" />
             </div>
         </div>
     </div>
