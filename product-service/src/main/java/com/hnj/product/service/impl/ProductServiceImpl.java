@@ -22,11 +22,16 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product addProduct(ProductRequest productRequest) {
+		if (productRequest.getDiscountOffer() != null && productRequest.getDiscountOffer() > 0){
+			Double discountPrice = (productRequest.getDiscountOffer()*productRequest.getPrice())/100;
+			productRequest.setPrice(productRequest.getPrice()-discountPrice);
+		}
 		Product product = new Product().builder()
 				.productCode(productRequest.getProductCode())
 				.productTitle(productRequest.getProductTitle())
 				.imageUrl(productRequest.getImageUrl())
 				.discountOffer(productRequest.getDiscountOffer())
+				.price(productRequest.getPrice())
 				.build();
 
 		return productRepository.save(product);
