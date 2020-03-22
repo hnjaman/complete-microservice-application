@@ -5,7 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from './store/store.module';
-import { ConfirmationDialog, ProductDialog, PriceDialog } from './store/store.component';
+import { ConfirmationDialog, ProductDialog, PriceDialog, StoreComponent } from './store/store.component';
+import { RouterModule } from '@angular/router';
 
 import {A11yModule} from '@angular/cdk/a11y';
 import {BidiModule} from '@angular/cdk/bidi';
@@ -125,7 +126,11 @@ export class MaterialModule {}
     MaterialModule,
     FormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    RouterModule.forRoot([
+      { path: "store", component: StoreComponent },
+      { path: "**", redirectTo: "/store" }
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]

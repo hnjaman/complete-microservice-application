@@ -22,9 +22,10 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product addProduct(ProductRequest productRequest) {
+		Double currentPrice = null;
 		if (productRequest.getDiscountOffer() != null && productRequest.getDiscountOffer() > 0){
 			Double discountPrice = (productRequest.getDiscountOffer()*productRequest.getPrice())/100;
-			productRequest.setPrice(productRequest.getPrice()-discountPrice);
+			currentPrice = productRequest.getPrice()-discountPrice;
 		}
 		Product product = new Product().builder()
 				.productCode(productRequest.getProductCode())
@@ -32,6 +33,7 @@ public class ProductServiceImpl implements ProductService {
 				.imageUrl(productRequest.getImageUrl())
 				.discountOffer(productRequest.getDiscountOffer())
 				.price(productRequest.getPrice())
+				.currentPrice(currentPrice)
 				.build();
 
 		return productRepository.save(product);
@@ -52,7 +54,7 @@ public class ProductServiceImpl implements ProductService {
 		Optional<Product> product = getProductById(productId);
 		if(product.isPresent() && product.get().getPrice() != null){
 			Double discountPrice = (discountOffer*product.get().getPrice())/100;
-			product.get().setPrice(product.get().getPrice()-discountPrice);
+			product.get().setCurrentPrice(product.get().getPrice()-discountPrice);
 			product.get().setDiscountOffer(discountOffer);
 			productRepository.save(product.get());
 		}
@@ -66,12 +68,12 @@ public class ProductServiceImpl implements ProductService {
 		if(product.isPresent()){
 			if (product.get().getDiscountOffer() != null && product.get().getDiscountOffer() > 0){
 				Double discountPrice = (product.get().getDiscountOffer()*price)/100;
-				product.get().setPrice(price-discountPrice);
-				return productRepository.save(product.get());
+				product.get().setPrice(price);
+				product.get().setCurrentPrice(price-discountPrice);
 			} else {
 				product.get().setPrice(price);
-				return productRepository.save(product.get());
 			}
+			return productRepository.save(product.get());
 		} else {
 			return null;
 		}

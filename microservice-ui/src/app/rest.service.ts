@@ -3,6 +3,7 @@ import{HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { Product } from './model/product.model';
+import { Router } from '@angular/router';
 
 const productsUrl = 'http://localhost:8081/products';
 const offerUrl = 'http://localhost:8082/offer';

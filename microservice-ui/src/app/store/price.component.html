@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Add Price</h1>
 
-<form novalidate #form="ngForm" (ngSubmit)="save(form)">
+<form novalidate #form="ngForm" (ngSubmit)="addPrice(form)">
     <div mat-dialog-content>
         <mat-form-field class="example-full-width">
             <mat-label>Product Id</mat-label>
@@ -14,7 +14,7 @@
     </div>
 
     <div mat-dialog-actions>
-        <button mat-button type="submit" cdkFocusInitial>Add</button>
-        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button type="submit" cdkFocusInitial tabindex="1">Add</button>
+        <button mat-button type="button" (click)="onNoClick()" tabindex="-1">Cancel</button> 
     </div>
 </form>
