@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OfferServiceImpl implements OfferService {
@@ -27,12 +29,21 @@ public class OfferServiceImpl implements OfferService {
 	@Transactional
 	@Override
 	public void addProductOffer(OfferRequest offerRequest) {
-		Offer offer = new Offer().builder()
-				.productId(offerRequest.getProductId())
-				.discountOffer(offerRequest.getDiscountOffer())
-				.build();
+		Optional<Offer> offer = offerRepository.findByProductId(offerRequest.getProductId());
+		if(offer.isPresent()){
+			offer.get().setDiscountOffer(offerRequest.getDiscountOffer());
+		}else {
+			offer = Optional.ofNullable(new Offer().builder()
+					.productId(offerRequest.getProductId())
+					.discountOffer(offerRequest.getDiscountOffer())
+					.build());
+		}
+		offerRepository.save(offer.get());
+		eventDispatcher.send(new ProductOfferEvent(offer.get().getProductId(), offer.get().getDiscountOffer()));
+	}
 
-		offerRepository.save(offer);
-		eventDispatcher.send(new ProductOfferEvent(offer.getProductId(), offer.getDiscountOffer()));
+	@Override
+	public List<Offer> getOffers() {
+		return offerRepository.findAll();
 	}
 }
