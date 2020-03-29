@@ -2,18 +2,19 @@ server:
   port: 8000
 
 zuul:
+#  ignoredServices: '*'
   prefix: /api
   routes:
     product-service:
       path: /products/**
-#      url: http://localhost:8081/products
-      serviceId: product-service
-      strip-prefix: false
+      url: http://localhost:8081/products
+#      serviceId: product-service
+#      strip-prefix: false
     offer-service:
       path: /offer/**
-#      url: http://localhost:8082/offer
-      serviceId: offer-service
-      strip-prefix: false
+      url: http://localhost:8082/offer
+#      serviceId: offer-service
+#      strip-prefix: false
 
 endpoints:
   routes:
