@@ -25,7 +25,7 @@ export class StoreComponent implements OnInit {
 
     private products:any;
 
-    private productsUrl = 'http://localhost:8081/products';
+    private productsUrl = 'http://localhost:8000/api/products';
 
     constructor(private repository: ProductRepository,
                 private http: HttpClient,
@@ -125,7 +125,8 @@ export class ConfirmationDialog {
         console.log(this.offer.productId);
         this.rest.addDiscount(this.offer).subscribe((result) => {
             console.log("Discount added successfully");
-            this.router.navigate(['/store']);
+            window.location.reload();
+            // this.router.navigate(['/store']);
         }, (err) => {
             console.log(err);
         });
@@ -191,7 +192,8 @@ export class ProductDialog {
         console.log(this.product);
         this.rest.saveProduct(this.product).subscribe((result) => {
             console.log("product added successfully");
-            this.router.navigate(['/store']);
+            window.location.reload();
+            // this.router.navigate(['/store']);
           }, (err) => {
             console.log(err);
           });
