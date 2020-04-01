@@ -13,20 +13,6 @@ zuul:
       serviceId: offer-service
       stripPrefix: true
 
-product-service:
-  ribbon:
-    eureka:
-      enabled: false
-    listOfServers: localhost:8081,localhost:8180
-    ServerListRefreshInterval: 15000
-
-offer-service:
-  ribbon:
-    eureka:
-      enabled: false
-    listOfServers: localhost:8082
-    ServerListRefreshInterval: 15000
-
 endpoints:
   routes:
     sensitive: false
