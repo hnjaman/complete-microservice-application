@@ -1,6 +1,10 @@
 server:
   port: 8000
 
+spring:
+  application:
+    name: api-gateway
+
 zuul:
   ignoredServices: '*'
   routes:
