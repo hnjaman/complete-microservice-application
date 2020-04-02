@@ -15,7 +15,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.0.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <properties>
@@ -40,10 +40,6 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
 
@@ -53,7 +49,12 @@
             <scope>test</scope>
         </dependency>
 
-<!-- for java 10 -->
+<!-- java.xml.bind is not available from java 11 -->
+<!-- Java 7 version: Included and Working-->
+<!-- Java 8 version: Included and Working-->
+<!-- Java 9 version: Deprecated-->
+<!-- Java 10 version: Deprecated-->
+<!-- Java 11 version: Removed-->
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
@@ -74,6 +75,8 @@
             <artifactId>activation</artifactId>
             <version>1.1.1</version>
         </dependency>
+<!--  Above 4 dependency is needed for java 9 or higher -->
+<!--  otherwise EnableEurekaServer will get java.lang.TypeNotPresentException: Type javax.xml.bind.JAXBContext exception -->
 
     </dependencies>
 
