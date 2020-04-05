@@ -1,4 +1,4 @@
-# Guideline for how to read this document
+# Guideline how to read this document
 First read this document in full concentration and understand how the architecture working clearly. I tried to describe 
 as simple as possible. No need to run the application or understand the code initially. **Read all the sections first**. 
 Once you have completed the document then you can run every application in your local system by configuring system prerequisites 
