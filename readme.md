@@ -1,20 +1,27 @@
-# What is microservice?
-Microservice is modern as well as a popular architectural term for designing software application over the last few years. There are lots of definition on the internet to describe what microservice really is and all of them are correct. But I wanna describe it simply, concisely and more importance is exactly.  
+# Guideline for how to read this document
+First read this document in full concentration and understand how the architecture working clearly. I tried to describe 
+as simple as possible. No need to run the application or understand the code initially. **Read all the sections first**. 
+Once you have completed the document then you can run every application in your local system by configuring system prerequisites 
+and don't forget to notice console log when run all application as well as use it for better understanding. 
+Here is total 5 separate application (1 frontend + 4 backend) and every application have it's own readme for application level understanding.
 
-A microservice application is consist of different services where every service is an application and  
+# What is microservice?
+Microservice is a modern as well as a popular architecture of designing software application over the last few years. 
+There are lots of content on the internet to describe what microservice really is and those are very informative. 
+But here I wanna describe it simply, concisely in production style.  
+
+A microservice application is consist of different services where every service is an application which is
   1. **Independently deployable**   
   2. **Independently scalable**  
 
 above two are the key requirements of a microservice application.
 
-In this microservice application here are two service **product-service** and **offer-service** both independently deployable and scaleable. They are also using a different database but this is not an issue about microservice architecture. They can use the same database.
+In this microservice application here are two service **product-service** and **offer-service** both independently 
+deployable and scalable. They are also using a different database but this is not an issue about microservice architecture. 
+They can use the same database.
 
-# Suggestions
-First read this readme in full concentration and understand the architecture clearly how it's working. I tried to describe 
-as simple as possible. No need to run the application or understand the code initially. **Read all the sections first**. 
-Once you have completed the readme then you can run these application in your local system by configuring system prerequisites. 
-Here is total 5 separate application (1 frontend + 4 backend) and every application have it's own readme for application 
-level understanding.
+To expose these two service as microservice architecture I used two other service those are **service-registry** for 
+service discovery and **api-gateway** for dynamic service routing as well as load balancing.
 
 # Run the services
 
@@ -85,9 +92,9 @@ It will not respond any products because backend services are not started yet.
 
 UI application is ready, Now we need to run it's backend applications. 
 - service-registry
+- api-gateway
 - product-service
 - offer-service
-- api-gateway
 
 All the backend applications are developed by spring-boot.
 
@@ -96,8 +103,8 @@ service-registry is the application where all microservice instances will regist
 to call another service, it will ask service-registry by service id to what instances are currently running for that service id. 
 service-registry check the instances and pass the request to any active the instance dynamically. This is called service 
 discovery. The advantage is no need to hard coded instance ip address, service registry always updates itself, if one instance 
-goes down, It removes that instance from the registry. To achieve this functionality I used
-- Eureka
+goes down, It removes that instance from the registry. 
+- **Eureka** is used to achieve this functionality
 
 Open a new terminal and run below command to launch service-registry
 ````
@@ -110,12 +117,14 @@ service-registry will launch in http://localhost:8761/
 ![service registry](readme-images/service-registry.png)
 
 Right now only service-registry is registered with Eureka. In your system it will show your ip address.  
-All the backend application will register here one by one after launching. 
+All the backend application will register here one by one after launching and service-registry will show like this. 
+
+![all registered service](readme-images/all-registered-service.png)
 
 ## Run api-gateway application
 api-gateway application is the service for facing other services. Just like the entry point to get any service. Receive 
-all the request from user and delegates the request to the appropriate service. To achieve this functionality I used
-- Zuul
+all the request from user and delegates the request to the appropriate service. 
+- **Zuul** is used to achieve this functionality
 
 Open a new terminal and run below command to run api gateway
 ````
@@ -142,7 +151,8 @@ If we have multiple instance for product-service like ``http://localhost:8081`` 
 So when we call ``http://localhost:8000/product-service/products`` api gateway will forward it to one of the two instance 
 of product-service as load balancing in Round-robin order since Zuul api-gateway use Ribbon load balancer.
 Api gateway frequently keep updated all available instance list of a service from eureka server.  
-*you can create as many as instance you need for product-service as well as offer-service api gateway will handle it smartly.*
+  
+**you can create as many as instance you need for product-service as well as offer-service api-gateway will handle it smartly.**
 
 So we can say that api-gateway is the front door of our backend application by passing this we need to enter kitchen or 
 washroom whatever. [Bad joke LOL]
@@ -194,7 +204,7 @@ add new product.
 After adding new product the window will be refreshed and you will see like this   
 
 ![after adding one product](readme-images/added-first-product.png)
-
+maf 
 Let's add two more new products
 
 ````
@@ -273,7 +283,7 @@ From **offer-service** when we add an offer for a specific product it pushes an 
 with discount_offer and **product-service** received the event then update it's own datasource by it's own business logic 
 according to the event.
 
-### How is this service to service event working?
+### How service to service event working?
 Here RabbitMQ is configured with both offer-service and product-service. In offer-service when a offer added it will push 
 an event to product-service. RabbitMG push the events as a queue[one by one serially] from event producer to event consumer.
 For these event offer-service is producer, product-service is consumer. RabbitMQ ensure all event must be transmitted to 
@@ -282,7 +292,17 @@ consumer if RabbitMQ server itself is not shutdown.
 If there is no running product-service instance RabbitMQ still keeps the event in itself and when a product-service 
 instance relaunched then RabbitMQ will transmit the event to any of the running product-service instance. You can test 
 it by shutting down all product-service by typing ``ctrl + c`` in all product-service launching terminal.  
-**This functionality is called Event Driven Development(EDD).**
+This functionality is called **Event Driven Development(EDD).**
+
+# Conclusion
+So far this is a complete microservice application. You can enhance the application by adding other service like 
+product-service or offer-service(what your requirements demands) by configuring with service-registry and api-gateway.
+You also can furnish the application with other handy application like Hystrix, Zipkin, Feign, Sidecar. There are lots 
+of handy tools to make the application interactive.  
+
+Hystrix is used here as circuit breaker in api-gateway but microservice-ui still not configured with Hystrix functionality 
+yet you can check it in postman by requesting any product-service api by keeping all product-service instance shutdown. 
+In this case Hystrix will respond with a default message instead of responding Internal Server Error(500) HTTP status.
 
 # Copyright & License
 
