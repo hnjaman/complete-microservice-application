@@ -34,4 +34,10 @@ public class Product {
 
     @Column(name = "discount_offer")
     private Double discountOffer;
+
+    @Column(name = "price")
+    private Double price;
+
+    @Column(name = "current_price")
+    private Double currentPrice;
 }

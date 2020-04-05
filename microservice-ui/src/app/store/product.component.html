@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>Add New Product</h1>
+
+<form novalidate #form="ngForm" (ngSubmit)="addNewProduct(form)">
+    <div mat-dialog-content>
+        <mat-form-field class="example-full-width">
+            <mat-label>Product Code</mat-label>
+            <input matInput type="text" name="productCode" [(ngModel)]="product.productCode" />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Product Title</mat-label>
+            <input matInput type="text" name="productTitle" [(ngModel)]="product.productTitle"/>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Product Image</mat-label>
+            <input matInput type="text" name="imageUrl" [(ngModel)]="product.imageUrl"/>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Product Price($)</mat-label>
+            <input matInput type="number" name="price" [(ngModel)]="product.price"/>
+        </mat-form-field>
+        
+        <!-- <mat-form-field class="example-full-width">
+            <mat-label>Product's Discount(%)</mat-label>
+            <input matInput type="number" name="discountOffer" [(ngModel)]="product.discountOffer"/>
+        </mat-form-field> -->
+    </div>
+
+    <div mat-dialog-actions>
+        <button mat-button type="submit" cdkFocusInitial>Add</button>
+        <button mat-button type="button" (click)="onNoClick()">Cancel</button>
+    </div>
+</form>

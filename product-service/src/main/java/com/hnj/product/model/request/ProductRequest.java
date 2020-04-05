@@ -14,4 +14,5 @@ public class ProductRequest {
     private String productTitle;
     private String imageUrl;
     private Double discountOffer;
+    private Double price;
 }

@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins="http://localhost:3000", allowedHeaders="*")
 public class ProductController {
 	private ProductService productService;
 
@@ -23,8 +24,18 @@ public class ProductController {
 		return productService.addProduct(productRequest);
 	}
 
+	@PutMapping("/products/addPrice")
+	public Product addPrice(@RequestParam Integer id, @RequestParam Double price){
+		return productService.addPrice(id, price);
+	}
+
 	@GetMapping("/products")
     public List<Product> getAllProducts(){
 	    return productService.getAllProducts();
     }
+
+    @GetMapping("/products/{id}")
+	public Product getProduct(@PathVariable Integer id){
+		return productService.getProductById(id).isPresent() ? productService.getProductById(id).get() : null;
+	}
 }

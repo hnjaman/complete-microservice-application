@@ -1,0 +1,31 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: api-gateway
+
+zuul:
+  ignoredServices: '*'
+  routes:
+    product-service:
+      path: /product-service/**
+      service-id: product-service
+      stripPrefix: true
+    offer-service:
+      path: /offer-service/**
+      serviceId: offer-service
+      stripPrefix: true
+
+endpoints:
+  routes:
+    sensitive: false
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    service-url:
+      default-zone: http://localhost:8761/eureka/

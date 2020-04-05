@@ -22,7 +22,7 @@ public class EventDispatcher {
     @Autowired
     EventDispatcher(final RabbitTemplate rabbitTemplate,
                     @Value("${offer.exchange}") final String offerExchange,
-                    @Value("${offer.solved.key}") final String offerSolvedRoutingKey) {
+                    @Value("${offer.pushed.key}") final String offerSolvedRoutingKey) {
         this.rabbitTemplate = rabbitTemplate;
         this.offerExchange = offerExchange;
         this.offerSolvedRoutingKey = offerSolvedRoutingKey;

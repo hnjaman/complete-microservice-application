@@ -1,7 +1,16 @@
 offer-service/.mvn
-product-service/.mvn
 offer-service/.gitignore
+
+product-service/.mvn
 product-service/.gitignore
+
+api-gateway/.mvn
+api-gateway/.gitignore
+
+service-registry/.gitignore
+service-registry/.mvn
+
+
 mvnw
 *.cmd
 
@@ -39,3 +48,51 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+### angular ### 
+# compiled output
+/microservice-ui/dist
+/microservice-ui/tmp
+/microservice-ui/out-tsc
+# Only exists if Bazel was run
+/microservice-ui/bazel-out
+
+# dependencies
+/microservice-ui/node_modules
+
+# profiling files
+chrome-profiler-events*.json
+speed-measure-plugin*.json
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# misc
+/microservice-ui/.sass-cache
+/microservice-ui/connect.lock
+/microservice-ui/coverage
+/microservice-ui/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/microservice-ui/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+

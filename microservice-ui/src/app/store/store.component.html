@@ -1,0 +1,63 @@
+<div class="container-fluid">
+    <div class="row">
+        <div style="padding-bottom: 10px; padding-top: 10px;" class="col bg-dark text-white" id="menu">
+            <a class="navbar-brand">WATCH STORE</a>
+        </div>
+    </div>
+
+    <div style="margin-top: 40px;" class="row-fluid justify-content-center">
+        <div style="margin-bottom: 30px; margin-left: 150px;" class="col-12 float-left">
+            <button type="button" style="margin-left: 30px;" class="btn btn-outline-dark btn-sm float-left" 
+                (click)="openProductDialog()">
+                Add New Product
+            </button>
+
+            <button type="button" style="margin-left: 100px;" class="btn btn-outline-dark btn-sm float-left" 
+                    (click)="openPriceDialog()">
+                Add Price
+            </button>
+
+            <button type="button" style="margin-left: 100px;" class="btn btn-outline-dark btn-sm float-left" 
+                    (click)="openDiscountDialog()">
+                Add Discount
+            </button>
+        </div>
+
+        <div *ngFor="let product of products">
+            <div class="col-4 float-left">
+                <h3> {{product.productTitle}} </h3>
+                <h6> product id : {{product.id}} </h6>
+                <h6> product code : {{product.productCode}} </h6>
+
+                <div *ngIf="product.price > 0; else addPrice">
+                    <h4 class="badge badge-dark float-left">
+                        Price : ${{ product.price }} 
+                    </h4>
+                </div>
+
+                <div *ngIf="product.currentPrice > 0;">
+                    <h4 style="margin-left: 20px;" class="badge badge-primary float-left">
+                        Payable : ${{ product.currentPrice }}
+                    </h4>
+                </div>
+
+                <div *ngIf="product.discountOffer > 0; else addDiscount">
+                    <h4 style="margin-left: 20px;" class="badge badge-secondary float-left">
+                        Discount : {{ product.discountOffer }}%
+                    </h4>
+                </div>
+
+                <ng-template #addPrice>
+                    <h4 class="badge badge-warning float-left">Price Not Added</h4>
+                </ng-template>
+                <ng-template #addDiscount>
+                    <h4 style="margin-left: 20px;" class="badge badge-info float-left">No Discount</h4>
+                </ng-template>
+            </div>
+
+            <div class="col-5 float-left">
+                <img [attr.src]="product.imageUrl" width="500px" height="250px" />
+            </div>
+        </div>
+    </div>
+</div>

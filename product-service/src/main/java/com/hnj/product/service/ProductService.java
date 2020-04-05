@@ -11,4 +11,5 @@ public interface ProductService {
     List<Product> getAllProducts();
     Optional<Product> getProductById(Integer productId);
     void addProductOffer(Integer productId, Double discountOffer);
+    Product addPrice(Integer id, Double price);
 }
