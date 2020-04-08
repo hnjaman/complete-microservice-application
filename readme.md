@@ -1,11 +1,17 @@
 # Guideline how to read this document
-First read this documentation with full concentration and understand clearly how the application working. I tried to describe 
-as simple as possible. No need to run the application or understand the code initially. **Read all the sections first**.
-I used Java, Spring Boot and Angular but you no need to know any specific language or technology to understand microservice 
+Read this documentation with full concentration and understand clearly how the application working. I tried to describe 
+as simple as possible. No need to run the application or understand the code initially. **Read the documentation and understand 
+the workflow diagram first**. I have used Java, Spring Boot and Angular but you no need to know any specific language or technology to understand microservice 
 concept. Just read the documentation first.   
-Once you have completed the documentation then you can run every application in your local system by configuring system prerequisites 
-and don't forget to notice console log when run all application as well as use it for better understanding. 
-Here is total 5 separate application (1 frontend + 4 backend) and every application have it's own readme for application level understanding.
+
+Once you have completed the documentation then you can run every application in your local system by configuring system 
+prerequisites and don't forget to notice terminal log when you run all application, it helps for better understanding. 
+Here is total 5 separate application (1 frontend + 4 backend).
+- microservice-ui (frontend)
+- service-registry
+- api-gateway
+- product-service
+- offer-service
 
 # What is microservice?
 Microservice is a modern as well as a popular architecture of designing software application over the last few years. 
@@ -19,7 +25,7 @@ A microservice application is consist of different services where every service 
 above two are the key requirements of a microservice application.
 
 In this microservice application here are two service **product-service** and **offer-service** both independently 
-deployable and scalable. **They are also using a different database but this is not an issue about microservice architecture. 
+deployable and scalable. **They are using two different database but this is not an issue about microservice architecture. 
 They can use the same database.**
 
 To expose these two service as microservice architecture I used two other service those are **service-registry** for 
@@ -96,11 +102,6 @@ It will not respond any products because backend services are not started yet.
 ![store home](readme-images/store-home.png)
 
 UI application is ready, Now we need to run it's backend applications. 
-- service-registry
-- api-gateway
-- product-service
-- offer-service
-
 All the backend applications are developed by spring-boot.
 
 ## Run service-registry application
@@ -302,7 +303,10 @@ will be lost too.
 RabbitMQ keeping all the events in itself will wait for any product-service instance when a product-service instance 
 relaunched then RabbitMQ will start to push it's events immediately to running product-service instance. You can test it 
 by shutting down all product-service by typing ``ctrl + c`` in all product-service launching terminal.  
-This functionality is called **Event Driven Development(EDD).**
+This functionality is called **Event Driven Development(EDD).** EDD is not a mandatory part of microservice application, 
+It's a smart way to do service to service communication. 
+
+Congratulations you have completed the documentation still recheck the workflow diagram that will make you 100% clear now.
 
 # Conclusion
 So far this is a complete microservice application. You can enhance the application by adding other service like 
