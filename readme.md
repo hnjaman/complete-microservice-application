@@ -1,7 +1,9 @@
 # Guideline how to read this document
-First read this document in full concentration and understand how the architecture working clearly. I tried to describe 
-as simple as possible. No need to run the application or understand the code initially. **Read all the sections first**. 
-Once you have completed the document then you can run every application in your local system by configuring system prerequisites 
+First read this documentation with full concentration and understand clearly how the application working. I tried to describe 
+as simple as possible. No need to run the application or understand the code initially. **Read all the sections first**.
+I used Java, Spring Boot and Angular but you no need to know any specific language or technology to understand microservice 
+concept. Just read the documentation first.   
+Once you have completed the documentation then you can run every application in your local system by configuring system prerequisites 
 and don't forget to notice console log when run all application as well as use it for better understanding. 
 Here is total 5 separate application (1 frontend + 4 backend) and every application have it's own readme for application level understanding.
 
@@ -17,11 +19,14 @@ A microservice application is consist of different services where every service 
 above two are the key requirements of a microservice application.
 
 In this microservice application here are two service **product-service** and **offer-service** both independently 
-deployable and scalable. They are also using a different database but this is not an issue about microservice architecture. 
-They can use the same database.
+deployable and scalable. **They are also using a different database but this is not an issue about microservice architecture. 
+They can use the same database.**
 
 To expose these two service as microservice architecture I used two other service those are **service-registry** for 
 service discovery and **api-gateway** for dynamic service routing as well as load balancing.
+
+# Have a look the workflow
+![workflow](readme-images/flow-diagram.png)
 
 # Run the services
 
@@ -279,19 +284,24 @@ Here you called offer-service api and it's added a new offer record in it's own 
 record where *product_id = 1*. 
 
 ### So how is this happened?
-From **offer-service** when we add an offer for a specific product it pushes an event notification to **product-service** 
-with discount_offer and **product-service** received the event then update it's own datasource by it's own business logic 
-according to the event.
+From **offer-service** when we add an offer for a specific product, it pushes an event notification to **product-service** 
+with discount_offer and **product-service** received the event then update it's own database according to it's own business
+logic of the event.
 
 ### How service to service event working?
 Here RabbitMQ is configured with both offer-service and product-service. In offer-service when a offer added it will push 
-an event to product-service. RabbitMG push the events as a queue[one by one serially] from event producer to event consumer.
-For these event offer-service is producer, product-service is consumer. RabbitMQ ensure all event must be transmitted to 
-consumer if RabbitMQ server itself is not shutdown.   
+an event to product-service. RabbitMQ push the events as a queue[one by one serially] order from event producer to event
+consumer. For these event offer-service is producer, product-service is consumer. RabbitMQ ensure all event must be pushed 
+to consumer if RabbitMQ server is running.
 
-If there is no running product-service instance RabbitMQ still keeps the event in itself and when a product-service 
-instance relaunched then RabbitMQ will transmit the event to any of the running product-service instance. You can test 
-it by shutting down all product-service by typing ``ctrl + c`` in all product-service launching terminal.  
+### What will happen if the RabbitMQ server is shutdown?  
+No events will be pushed to the consumer. If there is any stored events in RabbitMQ server memory before shutdown those 
+will be lost too.    
+
+### What will happen with the events when all product-service instance are shutdown?
+RabbitMQ keeping all the events in itself will wait for any product-service instance when a product-service instance 
+relaunched then RabbitMQ will start to push it's events immediately to running product-service instance. You can test it 
+by shutting down all product-service by typing ``ctrl + c`` in all product-service launching terminal.  
 This functionality is called **Event Driven Development(EDD).**
 
 # Conclusion
