@@ -297,7 +297,9 @@ to consumer if RabbitMQ server is running.
 
 ### What will happen if the RabbitMQ server is shutdown?  
 No events will be pushed to the consumer. If there is any stored events in RabbitMQ server memory before shutdown those 
-will be lost too.    
+will be lost too.  
+**Note:** It is possible to overcome this limitation by using persistence mechanism which will keep safe from losing stored events.
+This mechanism is not implemented here that's why am skipping the issue.    
 
 ### What will happen with the events when all product-service instance are shutdown?
 RabbitMQ keeping all the events in itself will wait for any product-service instance when a product-service instance 
